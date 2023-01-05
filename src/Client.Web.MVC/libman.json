@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@5.2.3",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "js/bootstrap.js.map",
+        "js/bootstrap.js",
+        "js/bootstrap.min.js.map",
+        "css/bootstrap.css"
+      ]
+    },
+    {
+      "library": "jquery@3.6.3",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "bootswatch@5.2.3",
+      "destination": "wwwroot/lib/bootswatch/"
+    },
+    {
+      "library": "bootstrap-datepicker@1.9.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker/"
+    }
+  ]
+}
