@@ -35,9 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{D37B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalog", "catalog", "{0F2CDA73-2973-4104-BB3E-14F99A06C02F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AP.Catalog.Core", "src\Services\Catalog\AP.Catalog.Core\AP.Catalog.Core.csproj", "{5DE3DE2A-7989-45AE-8B9B-4903F5800B50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Catalog.Core", "src\Services\Catalog\API.Catalog.Core\API.Catalog.Core.csproj", "{5DE3DE2A-7989-45AE-8B9B-4903F5800B50}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AP.Catalog.Infrastructure", "src\Services\Catalog\AP.Catalog.Infrastructure\AP.Catalog.Infrastructure.csproj", "{AC97C34B-C56A-4B99-B224-6CBFF12F21FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Catalog.Infrastructure", "src\Services\Catalog\API.Catalog.Infrastructure\API.Catalog.Infrastructure.csproj", "{AC97C34B-C56A-4B99-B224-6CBFF12F21FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Catalog", "src\Services\Catalog\API.Catalog\API.Catalog.csproj", "{84C30056-B334-4825-817D-3999F5934B0A}"
 EndProject
