@@ -10,4 +10,8 @@
     <ProjectReference Include="..\AP.Catalog.Core\AP.Catalog.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
