@@ -1,5 +1,6 @@
 using API.Catalog.Core.Repositories;
 using API.Catalog.Infrastructure.Data;
+using API.Catalog.Infrastructure.Profiles;
 using API.Catalog.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -71,6 +72,10 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddAutoMapper(options =>
+{
+    options.AddProfile(new ProductProfile());
+});
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>

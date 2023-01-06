@@ -18,15 +18,31 @@ namespace API.Catalog.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<Product> Get(int id)
+        public async Task<Product> Get(int id, bool includeDetails = false)
         {
+            if (includeDetails)
+            {
+                return await _context.Products
+                .Include(p => p.ProductType)
+                .Include(p => p.ProductBrand)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            }
+
             return await _context.Products
-                .FirstOrDefaultAsync(p=>p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Product>> Get()
+        public async Task<IEnumerable<Product>> Get(bool includeDetails = false)
         {
-            return await _context.Products.ToListAsync();
+            if (includeDetails)
+            {
+                return await _context.Products
+                .Include(p => p.ProductType)
+                .Include(p => p.ProductBrand)
+                .ToListAsync();
+            }
+            return await _context.Products
+                .ToListAsync();
         }
     }
 }
