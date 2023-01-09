@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 namespace Client.Web.MVC.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

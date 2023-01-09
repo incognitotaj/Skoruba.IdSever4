@@ -72,6 +72,9 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IProductBrandRepository, ProductBrandRepository>();
+builder.Services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+
 builder.Services.AddAutoMapper(options =>
 {
     options.AddProfile(new ProductProfile());

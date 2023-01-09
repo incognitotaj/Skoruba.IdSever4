@@ -1,4 +1,5 @@
 using Client.Web.MVC.Configuration;
+using Client.Web.MVC.Handlers;
 
 namespace Client.Web.MVC
 {
@@ -38,6 +39,31 @@ namespace Client.Web.MVC
 
                 options.GetClaimsFromUserInfoEndpoint = clientConfiguration.ClaimsFromUserInfoEndpoint;
             });
+
+
+            builder.Services.AddTransient<AuthenticationDelegatingHandler>();
+            builder.Services.AddHttpClient(name: "CatalogApiClient", options =>
+            {
+                options.BaseAddress = new Uri("https://localhost:44353");
+                options.DefaultRequestHeaders.Clear();
+                options.DefaultRequestHeaders.Add("Accept", "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            builder.Services.AddHttpClient(name: "HRApiClient", options =>
+            {
+                options.BaseAddress = new Uri("https://localhost:44354");
+                options.DefaultRequestHeaders.Clear();
+                options.DefaultRequestHeaders.Add("Accept", "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            builder.Services.AddHttpClient(name: "IDPClient", options =>
+            {
+                options.BaseAddress = new Uri("https://localhost:44310");
+                options.DefaultRequestHeaders.Clear();
+                options.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
+
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 

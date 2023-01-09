@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="row form-group mt-3">
+    <div class="col-12">
+        <input class="form-control" placeholder="Enter the name of product to search" />
+    </div>
+</div>
+<hr />
+<div class="row form-group mt-1">
+    <div class="col-12">
+        <button class="btn btn-success float-end">
+            Search
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3">
+        <h3 class="fw-bold">Brands</h3>
+        @await Component.InvokeAsync("ProductBrands")
+
+
+        <h3 class="fw-bold">Types</h3>
+        @await Component.InvokeAsync("ProductTypes")
+
+    </div>
+    <div class="col-xl-9">
+        <h3 class="fw-bold">Products In Store</h3>
+        @await Component.InvokeAsync("Products")
+        
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(function(){
+            
+        });
+    </script>
+}

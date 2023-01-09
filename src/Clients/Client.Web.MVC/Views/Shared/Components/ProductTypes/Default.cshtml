@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ProductType>
+@{
+    Layout = null;
+}
+
+
+<div class="list-group mb-3">
+    @foreach (var item in Model)
+    {
+        <a href="#" class="list-group-item list-group-item-action" data-id="@item.Id">@item.Name</a>
+    }
+</div>

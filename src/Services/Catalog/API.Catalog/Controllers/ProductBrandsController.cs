@@ -6,30 +6,30 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Catalog.Controllers
 {
-    public class ProductsController : BaseApiController
+    public class ProductBrandsController : BaseApiController
     {
-        private readonly ILogger<ProductsController> _logger;
-        private readonly IProductRepository _productRepository;
+        private readonly ILogger<ProductBrandsController> _logger;
+        private readonly IProductBrandRepository _productBrandRepository;
         private readonly IMapper _mapper;
 
-        public ProductsController(
-            ILogger<ProductsController> logger, 
-            IProductRepository productRepository,
+        public ProductBrandsController(
+            ILogger<ProductBrandsController> logger,
+            IProductBrandRepository productBrandRepository,
             IMapper mapper)
         {
             _logger = logger;
-            _productRepository = productRepository;
+            _productBrandRepository = productBrandRepository;
             _mapper = mapper;
         }
 
         [HttpGet()]
         [Authorize(Policy = "read_access")]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
+        public async Task<ActionResult<IEnumerable<ProductBrandDto>>> Get()
         {
             try
             {
-                var result = await _productRepository.Get(true);
-                var products = _mapper.Map<IEnumerable<ProductDto>>(result);
+                var result = await _productBrandRepository.Get(true);
+                var products = _mapper.Map<IEnumerable<ProductBrandDto>>(result);
                 return Ok(products);
             }
             catch (Exception ex)
@@ -42,18 +42,18 @@ namespace API.Catalog.Controllers
 
         [HttpGet("{id}")]
         [Authorize(Policy = "read_access")]
-        public async Task<ActionResult<ProductDto>> Get(int id)
+        public async Task<ActionResult<ProductBrandDto>> Get(int id)
         {
             try
             {
-                var result = await _productRepository.Get(id, true);
+                var result = await _productBrandRepository.Get(id, true);
 
                 if (result == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(_mapper.Map<ProductDto>(result));
+                return Ok(_mapper.Map<ProductBrandDto>(result));
             }
             catch (Exception ex)
             {

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Product>
+@{
+    Layout = null;
+}
+
+
+<div class="list-group mb-3">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-2">
+            <div class="card-body">
+                <h4 class="card-title">@item.Name</h4>
+                <h6 class="card-subtitle mb-2 text-muted">@item.ProductType</h6>
+                <p class="card-text">
+                    @item.Description
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+</div>
