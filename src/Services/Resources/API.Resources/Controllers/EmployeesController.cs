@@ -1,37 +1,36 @@
-using API.Catalog.Core.Repositories;
-using API.Catalog.Infrastructure.Dtos;
+﻿using API.Resources.Core.Repositories;
+using API.Resources.Infrastructure.Dtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Catalog.Controllers
+namespace API.Resources.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class ProductsController : BaseApiController
+    public class EmployeesController : BaseApiController
     {
-        private readonly ILogger<ProductsController> _logger;
-        private readonly IProductRepository _productRepository;
+        private readonly ILogger<EmployeesController> _logger;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
 
-        public ProductsController(
-            ILogger<ProductsController> logger, 
-            IProductRepository productRepository,
+        public EmployeesController(
+            ILogger<EmployeesController> logger,
+            IEmployeeRepository employeeRepository,
             IMapper mapper)
         {
             _logger = logger;
-            _productRepository = productRepository;
+            _employeeRepository = employeeRepository;
             _mapper = mapper;
         }
 
+
         [HttpGet()]
         [Authorize(Policy = "read_access")]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
+        public async Task<ActionResult<IEnumerable<EmployeeDto>>> Get()
         {
             try
             {
-                var result = await _productRepository.Get(true);
-                var products = _mapper.Map<IEnumerable<ProductDto>>(result);
+                var result = await _employeeRepository.Get(true);
+                var products = _mapper.Map<IEnumerable<EmployeeDto>>(result);
                 return Ok(products);
             }
             catch (Exception ex)
@@ -41,21 +40,20 @@ namespace API.Catalog.Controllers
             }
         }
 
-
         [HttpGet("{id}")]
         [Authorize(Policy = "read_access")]
-        public async Task<ActionResult<ProductDto>> Get(int id)
+        public async Task<ActionResult<EmployeeDto>> Get(int id)
         {
             try
             {
-                var result = await _productRepository.Get(id, true);
+                var result = await _employeeRepository.Get(id, true);
 
                 if (result == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(_mapper.Map<ProductDto>(result));
+                return Ok(_mapper.Map<EmployeeDto>(result));
             }
             catch (Exception ex)
             {
