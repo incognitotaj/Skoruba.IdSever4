@@ -1,48 +1,48 @@
 ﻿using API.Catalog.Core.Entities;
+using API.Catalog.Core.Helpers;
 using API.Catalog.Core.Repositories;
 using API.Catalog.Infrastructure.Data;
+using Common.Core.Helpers;
+using Common.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace API.Catalog.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
-        private readonly CatalogContext _context;
-
         public ProductRepository(CatalogContext context)
+            : base(context)
         {
-            _context = context;
         }
+
         public async Task<Product> Get(int id, bool includeDetails = false)
         {
             if (includeDetails)
             {
-                return await _context.Products
-                .Include(p => p.ProductType)
-                .Include(p => p.ProductBrand)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                return await Get()
+                    .Include(p => p.ProductBrand)
+                    .Include(p => p.ProductType)
+                    .FirstOrDefaultAsync(x => x.Id == id);
             }
 
-            return await _context.Products
-                .FirstOrDefaultAsync(p => p.Id == id);
+            return await Get()
+                    .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Product>> Get(bool includeDetails = false)
+        public PagedList<Product> Get(ProductParameters pageParameters, bool includeDetails = false)
         {
+            var result = Get();
+
             if (includeDetails)
             {
-                return await _context.Products
+                result = result
                 .Include(p => p.ProductType)
-                .Include(p => p.ProductBrand)
-                .ToListAsync();
+                .Include(p => p.ProductBrand);
+
+                return PagedList<Product>.Create(result, pageParameters.PageNumber, pageParameters.PageSize);
             }
-            return await _context.Products
-                .ToListAsync();
+
+            return PagedList<Product>.Create(result, pageParameters.PageNumber, pageParameters.PageSize);
         }
     }
 }

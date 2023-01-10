@@ -1,15 +1,14 @@
 ﻿using API.Catalog.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using API.Catalog.Core.Helpers;
+using Common.Core.Helpers;
+using Common.Core.Repositories;
 
 namespace API.Catalog.Core.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepositoryBase<Product>
     {
         Task<Product> Get(int id, bool includeDetails = false);
-        Task<IEnumerable<Product>> Get(bool includeDetails = false);
+
+        PagedList<Product> Get(ProductParameters pageParameters, bool includeDetails = false);
     }
 }

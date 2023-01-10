@@ -1,8 +1,10 @@
+using API.Catalog.Core.Helpers;
 using API.Catalog.Core.Repositories;
 using API.Catalog.Infrastructure.Dtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace API.Catalog.Controllers
 {
@@ -24,11 +26,23 @@ namespace API.Catalog.Controllers
 
         [HttpGet()]
         [Authorize(Policy = "read_access")]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
+        public ActionResult Get([FromQuery]ProductParameters pageParameters)
         {
             try
             {
-                var result = await _productRepository.Get(true);
+                var result = _productRepository.Get(pageParameters, true);
+
+                var metadata = new
+                {
+                    result.TotalCount,
+                    result.PageSize,
+                    result.CurrentPage,
+                    result.HasNext,
+                    result.HasPrevious,
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
                 var products = _mapper.Map<IEnumerable<ProductDto>>(result);
                 return Ok(products);
             }
