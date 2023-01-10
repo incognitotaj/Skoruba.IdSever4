@@ -1,5 +1,9 @@
 using Client.Web.MVC.Configuration;
 using Client.Web.MVC.Handlers;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Client.Web.MVC
 {
@@ -29,15 +33,32 @@ namespace Client.Web.MVC
                 options.ClientId = clientConfiguration.ClientId;
                 options.ClientSecret = clientConfiguration.ClientSecret;
                 options.ResponseType = clientConfiguration.OidcResponseType;
-
                 options.SaveTokens = clientConfiguration.SaveTokens;
+
                 options.Scope.Clear();
                 foreach (var scope in clientConfiguration.Scopes)
                 {
                     options.Scope.Add(scope);
                 }
 
+                options.ClaimActions.MapUniqueJsonKey(
+                    clientConfiguration.TokenValidationClaimRole,
+                    clientConfiguration.TokenValidationClaimRole,
+                    clientConfiguration.TokenValidationClaimRole);
+
                 options.GetClaimsFromUserInfoEndpoint = clientConfiguration.ClaimsFromUserInfoEndpoint;
+
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    NameClaimType = clientConfiguration.TokenValidationClaimName,
+                    RoleClaimType = clientConfiguration.TokenValidationClaimRole
+                };
+
+                options.Events = new OpenIdConnectEvents
+                {
+                    OnMessageReceived = context => OnMessageReceived(context, clientConfiguration),
+                    OnRedirectToIdentityProvider = context => OnRedirectToIdentityProvider(context, clientConfiguration),
+                };
             });
 
 
@@ -86,6 +107,24 @@ namespace Client.Web.MVC
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        private static Task OnMessageReceived(MessageReceivedContext context, ClientConfiguration clientConfiguration)
+        {
+            context.Properties.IsPersistent = true;
+            context.Properties.ExpiresUtc = new DateTimeOffset(DateTime.Now.AddHours(clientConfiguration.CookieExpiresUtcHours));
+
+            return Task.CompletedTask;
+        }
+
+        private static Task OnRedirectToIdentityProvider(RedirectContext context, ClientConfiguration clientConfiguration)
+        {
+            if (!string.IsNullOrEmpty(clientConfiguration.ClientRedirectUri))
+            {
+                context.ProtocolMessage.RedirectUri = clientConfiguration.ClientRedirectUri;
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

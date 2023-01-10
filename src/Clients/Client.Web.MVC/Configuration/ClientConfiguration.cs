@@ -8,6 +8,9 @@
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
 
+        public string ClientRedirectUri { get; set; }
+        public double CookieExpiresUtcHours { get; set; }
+
         public string TokenValidationClaimName { get; set; }
         public string TokenValidationClaimRole { get; set; }
         public double IdentityClientCookieExpiresUtcHours { get; set; }
