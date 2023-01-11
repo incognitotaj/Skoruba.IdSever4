@@ -1,5 +1,5 @@
-﻿using Client.Web.MVC.Responses;
-using Client.Web.MVC.Services.Contracts;
+﻿using Common.Core.Responses;
+using Common.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Web.MVC.ViewComponents

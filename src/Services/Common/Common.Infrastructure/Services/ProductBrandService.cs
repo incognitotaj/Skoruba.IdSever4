@@ -1,28 +1,27 @@
-﻿using API.Catalog.Core.Entities;
-using Client.Web.MVC.Responses;
-using Client.Web.MVC.Services.Contracts;
-using Common.Core.Responses;
+﻿using Common.Core.Responses;
+using Common.Core.Services;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
-namespace Client.Web.MVC.Services.Implementations
+namespace Common.Infrastructure.Servces
 {
-    public class ProductTypeService : IProductTypesService
+    public class ProductBrandService : IProductBrandsService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public ProductTypeService(IHttpClientFactory httpClientFactory)
+        public ProductBrandService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<ProductTypeResponse> GetByIdAsync(int id)
+        public async Task<ProductBrandResponse> GetByIdAsync(int id)
         {
-            ProductTypeResponse product = new ProductTypeResponse();
+            ProductBrandResponse product = new ProductBrandResponse();
 
             var client = _httpClientFactory.CreateClient("CatalogApiClient");
 
             var request = new HttpRequestMessage(
                 method: HttpMethod.Get,
-                requestUri: $"/producttypes/{id}");
+                requestUri: $"/productbrands/{id}");
 
 
             var result = await client
@@ -33,22 +32,22 @@ namespace Client.Web.MVC.Services.Implementations
             if (result.IsSuccessStatusCode)
             {
                 var model = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<ApiResponse<ProductTypeResponse>>(model);
+                var data = JsonConvert.DeserializeObject<ApiResponse<ProductBrandResponse>>(model);
 
                 product = data.Data;
             }
             return product;
         }
 
-        public async Task<IEnumerable<ProductTypeResponse>> GetAsync()
+        public async Task<IEnumerable<ProductBrandResponse>> GetAsync()
         {
-            IEnumerable<ProductTypeResponse> products = new List<ProductTypeResponse>();
+            IEnumerable<ProductBrandResponse> products = new List<ProductBrandResponse>();
 
             var client = _httpClientFactory.CreateClient("CatalogApiClient");
 
             var request = new HttpRequestMessage(
                 method: HttpMethod.Get,
-                requestUri: "/producttypes");
+                requestUri: "/products");
 
 
             var result = await client
@@ -59,7 +58,7 @@ namespace Client.Web.MVC.Services.Implementations
             if (result.IsSuccessStatusCode)
             {
                 var model = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductTypeResponse>>>(model);
+                var data = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductBrandResponse>>>(model);
 
                 products = data.Data;
             }
@@ -67,7 +66,7 @@ namespace Client.Web.MVC.Services.Implementations
         }
 
 
-        public async Task<bool> CreateAsync(ProductTypeResponse model)
+        public async Task<bool> CreateAsync(ProductBrandResponse model)
         {
             var client = _httpClientFactory.CreateClient("CatalogApiClient");
 
@@ -75,7 +74,7 @@ namespace Client.Web.MVC.Services.Implementations
                 method: HttpMethod.Get,
                 requestUri: "/productbrands");
 
-            request.Content = JsonContent.Create(new ProductType
+            request.Content = JsonContent.Create(new ProductBrandResponse
             {
                 Name = model.Name,
             });

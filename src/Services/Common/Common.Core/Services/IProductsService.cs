@@ -1,7 +1,6 @@
-﻿using API.Catalog.Core.Entities;
-using Client.Web.MVC.Responses;
+﻿using Common.Core.Responses;
 
-namespace Client.Web.MVC.Services.Contracts
+namespace Common.Core.Services
 {
     public interface IProductsService
     {

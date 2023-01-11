@@ -1,10 +1,9 @@
 using Client.Web.MVC.Configuration;
 using Client.Web.MVC.Handlers;
-using Client.Web.MVC.Services.Contracts;
-using Client.Web.MVC.Services.Implementations;
+using Common.Core.Services;
+using Common.Infrastructure.Servces;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Client.Web.MVC

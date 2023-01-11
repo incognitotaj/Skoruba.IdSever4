@@ -1,4 +1,4 @@
-﻿namespace Client.Web.MVC.Responses
+﻿namespace Common.Core.Responses
 {
     public class ProductResponse
     {

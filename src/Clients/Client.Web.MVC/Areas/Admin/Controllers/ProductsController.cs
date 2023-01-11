@@ -1,7 +1,6 @@
-﻿using API.Catalog.Core.Entities;
-using Client.Web.MVC.Areas.Admin.Models;
-using Client.Web.MVC.Responses;
-using Client.Web.MVC.Services.Contracts;
+﻿using Client.Web.MVC.Areas.Admin.Models;
+using Common.Core.Responses;
+using Common.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

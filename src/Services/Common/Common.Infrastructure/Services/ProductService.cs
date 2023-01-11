@@ -1,10 +1,9 @@
-﻿using API.Catalog.Core.Entities;
-using Client.Web.MVC.Responses;
-using Client.Web.MVC.Services.Contracts;
-using Common.Core.Responses;
+﻿using Common.Core.Responses;
+using Common.Core.Services;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
-namespace Client.Web.MVC.Services.Implementations
+namespace Common.Infrastructure.Servces
 {
     public class ProductService : IProductsService
     {
@@ -74,7 +73,7 @@ namespace Client.Web.MVC.Services.Implementations
                 method: HttpMethod.Get,
                 requestUri: "/products");
 
-            request.Content = JsonContent.Create(new Product
+            request.Content = JsonContent.Create(new ProductResponse
             {
                 Name = model.Name,
                 Description = model.Description,

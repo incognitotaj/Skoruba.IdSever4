@@ -1,7 +1,5 @@
-﻿using Client.Web.MVC.Responses;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Client.Web.MVC.Areas.Admin.Controllers
 {
