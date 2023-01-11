@@ -1,4 +1,5 @@
 ﻿using Client.Web.MVC.Responses;
+using Common.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -37,9 +38,9 @@ namespace Client.Web.MVC.ViewComponents
             if (result.IsSuccessStatusCode)
             {
                 var model = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<IEnumerable<ProductType>>(model);
+                var data = JsonConvert.DeserializeObject<ApiResponse<ProductType>>(model);
 
-                productTypes = data;
+                productTypes = data.Data;
             }
             return productTypes;
         }

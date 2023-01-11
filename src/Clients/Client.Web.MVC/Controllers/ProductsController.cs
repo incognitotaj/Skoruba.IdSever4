@@ -7,7 +7,6 @@ using System.Net.Http;
 
 namespace Client.Web.MVC.Controllers
 {
-    [Authorize]
     public class ProductsController : Controller
     {
         private readonly ILogger<ProductsController> _logger;
@@ -22,9 +21,10 @@ namespace Client.Web.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        [Authorize(Policy = "user_read_policy")]
+        public IActionResult Index()
         {
-            await LogTokenAndClaims();
+            //await LogTokenAndClaims();
             return View();
         }
 

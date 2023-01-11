@@ -20,6 +20,52 @@ namespace Client.Web.MVC
                 .GetSection(nameof(ClientConfiguration))
                 .Get<ClientConfiguration>();
 
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy(name: "user_read_policy",
+                    policy =>
+                    {
+                        policy.RequireAuthenticatedUser();
+                        //policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin", "manager" });
+                    });
+
+
+                options.AddPolicy(name: "admin_policy",
+                    policy =>
+                    {
+                        policy.RequireAuthenticatedUser();
+                        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
+                    });
+
+
+                options.AddPolicy(name: "manager_policy",
+                    policy =>
+                    {
+                        policy.RequireAuthenticatedUser();
+                        policy.RequireClaim(claimType: "role", allowedValues: new[] { "manager" });
+                    });
+
+
+                //options.AddPolicy(name: "read_policy",
+                //    policy =>
+                //        policy.RequireAssertion(context => context.User.HasClaim(
+                //            c =>
+                //            {
+                //                return c.Type == JwtClaimTypes.Role &&
+                //                        (c.Value.Contains("admin") || c.Value.Contains("manager"));
+                //            })
+                //        ));
+
+                //options.AddPolicy(name: "write_policy",
+                //    policy =>
+                //        policy.RequireAssertion(context => context.User.HasClaim(
+                //            c =>
+                //            {
+                //                return c.Type == JwtClaimTypes.Role && c.Value.Contains("admin");
+                //            })
+                //        ));
+            });
+
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";

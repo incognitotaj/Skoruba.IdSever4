@@ -2,12 +2,21 @@ using API.Catalog.Core.Repositories;
 using API.Catalog.Infrastructure.Data;
 using API.Catalog.Infrastructure.Profiles;
 using API.Catalog.Infrastructure.Repositories;
+using AutoWrapper;
+using Common.Core.Responses;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(builder.Configuration)
+                    .Enrich.FromLogContext()
+                    .CreateLogger();
+builder.Host.UseSerilog(Log.Logger);
 
 // Add services to the container.
 var config = builder.Configuration;
@@ -105,6 +114,12 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+    options.SuppressMapClientErrors = true;
+});
+
 // Configure the HTTP request pipeline.
 
 var app = builder.Build();
@@ -126,6 +141,7 @@ catch (Exception ex)
     logger.LogError(ex.Message);
 }
 
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -143,5 +159,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseApiResponseAndExceptionWrapper<MapApiResponse>(new AutoWrapperOptions
+{
+    IgnoreNullValue = false,
+    ShowApiVersion = true,
+    ShowStatusCode = true,
+    ShowIsErrorFlagForSuccessfulResponse = true,
+});
 
 app.Run();
