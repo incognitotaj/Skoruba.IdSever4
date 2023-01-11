@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+
+<div class="d-flex justify-content-between my-3">
+    <h2 class="" style="line-height:1;">Products</h2>
+    <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="btn btn-success">
+        Register
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        @await Component.InvokeAsync("Client.Web.MVC.Areas.Admin.ViewComponents.Products")
+    </div>
+</div>

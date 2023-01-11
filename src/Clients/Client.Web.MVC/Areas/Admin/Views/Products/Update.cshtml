@@ -1,0 +1,77 @@
+﻿@model ProductUpdateModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+@section Styles{
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+}
+
+<div class="row mt-3">
+    <div class="col-xl-12">
+        <div class="page-header">
+            <h1 id="forms">Edit Product</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-xl-12-">
+
+        <form method="post" asp-area="Admin" asp-controller="Products" asp-action="Create">
+
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group col-xl-12">
+                <label asp-for="Name" class="form-label mt-4 fw-bold">Name</label>
+                <input class="form-control" asp-for="Name" />
+            </div>
+
+            <div class="form-group col-xl-12">
+                <label asp-for="Description" class="form-label mt-4 fw-bold">Description</label>
+                <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+            </div>
+
+            <div class="form-group col-xl-6">
+                <label asp-for="Price" class="form-label mt-4 fw-bold">Price</label>
+                <input class="form-control" asp-for="Price" />
+            </div>
+
+
+            <div class="form-group col-xl-12">
+                <label asp-for="ProductTypeId" class="form-label mt-4 fw-bold">Product Type</label>
+                <select class="form-select" asp-for="ProductTypeId" asp-items="@Model.ProductTypes">
+                    <option>Select From List</option>
+                </select>
+            </div>
+
+            <div class="form-group col-xl-12">
+                <label asp-for="ProductBrandId" class="form-label mt-4 fw-bold">Product Brand</label>
+                <select class="form-select" asp-for="ProductBrandId" asp-items="@Model.ProductBrands">
+                    <option>Select From List</option>
+                </select>
+            </div>
+            <hr />
+            <div class="form-group col-xl-12 mt-2">
+                <button type="submit" class="btn btn-success float-end">
+                    Save Changes
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(function () {
+
+            $(".date-picker").datepicker({
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                todayBtn: true
+            });
+        });
+    </script>
+}

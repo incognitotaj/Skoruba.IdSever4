@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 
-namespace Client.Web.MVC.Controllers
+namespace Client.Web.MVC.Areas.Admin.Controllers
 {
-    [Authorize]
-    public class ProductBrandsController : Controller
+    [Area("Admin")]
+    public class ProductTypesController : Controller
     {
-        private readonly ILogger<ProductBrandsController> _logger;
+        private readonly ILogger<ProductTypesController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public ProductBrandsController(
-            ILogger<ProductBrandsController> logger,
+        public ProductTypesController(
+            ILogger<ProductTypesController> logger,
             IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
@@ -20,7 +21,8 @@ namespace Client.Web.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        [Authorize(Policy = "admin_policy")]
+        public IActionResult Index()
         {
             return View();
         }

@@ -7,13 +7,13 @@ using System.Net.Http;
 
 namespace Client.Web.MVC.Controllers
 {
-    public class ProductsController : Controller
+    public class DashboardController : Controller
     {
-        private readonly ILogger<ProductsController> _logger;
+        private readonly ILogger<DashboardController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public ProductsController(
-            ILogger<ProductsController> logger,
+        public DashboardController(
+            ILogger<DashboardController> logger,
             IHttpClientFactory httpClientFactory)
         {
             _logger = logger;

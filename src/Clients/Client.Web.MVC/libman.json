@@ -24,6 +24,16 @@
     {
       "library": "bootstrap-datepicker@1.9.0",
       "destination": "wwwroot/lib/bootstrap-datepicker/"
+    },
+    {
+      "library": "popper.js@2.11.6",
+      "destination": "wwwroot/lib/popper.js/",
+      "files": [
+        "umd/popper.min.js",
+        "cjs/popper.js",
+        "cjs/popper.js.map",
+        "cjs/popper.min.js"
+      ]
     }
   ]
 }

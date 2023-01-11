@@ -1,5 +1,7 @@
 using Client.Web.MVC.Configuration;
 using Client.Web.MVC.Handlers;
+using Client.Web.MVC.Services.Contracts;
+using Client.Web.MVC.Services.Implementations;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,31 +32,30 @@ namespace Client.Web.MVC
                     });
 
 
+                //options.AddPolicy(name: "admin_policy",
+                //    policy =>
+                //    {
+                //        policy.RequireAuthenticatedUser();
+                //        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
+                //    });
+
+
+                //options.AddPolicy(name: "manager_policy",
+                //    policy =>
+                //    {
+                //        policy.RequireAuthenticatedUser();
+                //        policy.RequireClaim(claimType: "role", allowedValues: new[] { "manager" });
+                //    });
+
+
                 options.AddPolicy(name: "admin_policy",
                     policy =>
-                    {
-                        policy.RequireAuthenticatedUser();
-                        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
-                    });
-
-
-                options.AddPolicy(name: "manager_policy",
-                    policy =>
-                    {
-                        policy.RequireAuthenticatedUser();
-                        policy.RequireClaim(claimType: "role", allowedValues: new[] { "manager" });
-                    });
-
-
-                //options.AddPolicy(name: "read_policy",
-                //    policy =>
-                //        policy.RequireAssertion(context => context.User.HasClaim(
-                //            c =>
-                //            {
-                //                return c.Type == JwtClaimTypes.Role &&
-                //                        (c.Value.Contains("admin") || c.Value.Contains("manager"));
-                //            })
-                //        ));
+                        policy.RequireAssertion(context => context.User.HasClaim(
+                            c =>
+                            {
+                                return c.Type == JwtClaimTypes.Role && c.Value.Contains("admin");
+                            })
+                        ));
 
                 //options.AddPolicy(name: "write_policy",
                 //    policy =>
@@ -132,6 +133,11 @@ namespace Client.Web.MVC
 
             builder.Services.AddHttpContextAccessor();
 
+
+            builder.Services.AddTransient<IProductsService, ProductService>();
+            builder.Services.AddTransient<IProductBrandsService, ProductBrandService>();
+            builder.Services.AddTransient<IProductTypesService, ProductTypeService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -147,6 +153,14 @@ namespace Client.Web.MVC
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.MapControllerRoute(
                 name: "default",

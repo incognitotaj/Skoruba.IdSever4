@@ -4,7 +4,7 @@ using Common.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Client.Web.MVC.ViewComponents
+namespace Client.Web.MVC.Areas.Admin.ViewComponents
 {
     public class ProductsViewComponent : ViewComponent
     {

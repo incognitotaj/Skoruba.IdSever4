@@ -1,13 +1,9 @@
-﻿using API.Catalog.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection.Metadata.Ecma335;
 
-namespace API.Catalog.Infrastructure.Dtos
+namespace Client.Web.MVC.Areas.Admin.Models
 {
-    public class ProductDto
+    public class ProductUpdateModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,8 +11,8 @@ namespace API.Catalog.Infrastructure.Dtos
         public decimal Price { get; set; }
         public string PictureUrl { get; set; }
         public int ProductBrandId { get; set; }
-        public string ProductBrand { get; set; }
+        public IEnumerable<SelectListItem> ProductBrands { get; set; }
         public int ProductTypeId { get; set; }
-        public string ProductType { get; set; }
+        public IEnumerable<SelectListItem>  ProductTypes { get; set; }
     }
 }

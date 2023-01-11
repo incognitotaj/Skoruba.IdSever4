@@ -1,16 +1,16 @@
 ﻿using Client.Web.MVC.Responses;
-using Common.Core.Responses;
+using Client.Web.MVC.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Client.Web.MVC.ViewComponents
 {
     public class ProductBrandsViewComponent : ViewComponent
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        public ProductBrandsViewComponent(IHttpClientFactory httpClientFactory)
+        private readonly IProductBrandsService _productBrandsService;
+
+        public ProductBrandsViewComponent(IProductBrandsService productBrandsService)
         {
-            _httpClientFactory = httpClientFactory;
+            _productBrandsService = productBrandsService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -19,30 +19,9 @@ namespace Client.Web.MVC.ViewComponents
             return View(items);
         }
 
-        private async Task<IEnumerable<ProductBrand>> GetItemsAsync()
+        private async Task<IEnumerable<ProductBrandResponse>> GetItemsAsync()
         {
-            IEnumerable<ProductBrand> productBrands = new List<ProductBrand>();
-
-            var client = _httpClientFactory.CreateClient("CatalogApiClient");
-
-            var request = new HttpRequestMessage(
-                method: HttpMethod.Get,
-                requestUri: "/productbrands");
-
-
-            var result = await client
-                .SendAsync(request: request, completionOption: HttpCompletionOption.ResponseHeadersRead)
-                .ConfigureAwait(false);
-
-            result.EnsureSuccessStatusCode();
-            if (result.IsSuccessStatusCode)
-            {
-                var model = await result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<ApiResponse<ProductBrand>>(model);
-
-                productBrands = data.Data;
-            }
-            return productBrands;
+            return await _productBrandsService.GetAsync();
         }
     }
 }

@@ -11,6 +11,6 @@ namespace Common.Core.Responses
         public string Code { get; set; }
         public string Message { get; set; }
         public bool IsError { get; set; }
-        public IEnumerable<T> Data { get; set; }
+        public T Data { get; set; }
     }
 }
