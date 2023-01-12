@@ -2,7 +2,9 @@ using API.Catalog.Core.Helpers;
 using API.Catalog.Core.Repositories;
 using API.Catalog.Infrastructure.Dtos;
 using AutoMapper;
+using Common.Core.Requests;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -74,6 +76,30 @@ namespace API.Catalog.Controllers
                 _logger.LogError($"Error: {ex.Message}");
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost]
+        public ActionResult Create([FromForm]ProductPostRequest postRequest)
+        {
+            if (postRequest == null)
+            {
+
+                return BadRequest("Invalid post request");
+            }
+            
+            if (string.IsNullOrEmpty(Request.GetMultipartBoundary()))
+            {
+                return BadRequest("Invalid post header");
+            }
+
+
+            if (postRequest.Image != null)
+            {
+
+                //await postService.SavePostImageAsync(postRequest);
+            }
+
+            return Ok();
         }
     }
 }

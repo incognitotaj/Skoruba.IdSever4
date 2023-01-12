@@ -15,6 +15,11 @@ namespace API.Catalog.Infrastructure.Repositories
         {
         }
 
+        public Task<Product> CreateAsync(Product postRequest)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Product> Get(int id, bool includeDetails = false)
         {
             if (includeDetails)

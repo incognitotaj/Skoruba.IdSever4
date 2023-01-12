@@ -2,6 +2,7 @@
 using API.Catalog.Core.Helpers;
 using Common.Core.Helpers;
 using Common.Core.Repositories;
+using Common.Core.Requests;
 
 namespace API.Catalog.Core.Repositories
 {
@@ -10,5 +11,7 @@ namespace API.Catalog.Core.Repositories
         Task<Product> Get(int id, bool includeDetails = false);
 
         PagedList<Product> Get(ProductParameters pageParameters, bool includeDetails = false);
+
+        Task<Product> CreateAsync(Product postRequest);
     }
 }
