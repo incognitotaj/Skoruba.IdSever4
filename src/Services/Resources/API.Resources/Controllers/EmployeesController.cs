@@ -24,7 +24,7 @@ namespace API.Resources.Controllers
 
 
         [HttpGet()]
-        [Authorize(Policy = "read_access")]
+        //[Authorize(Policy = "read_access")]
         public async Task<ActionResult<IEnumerable<EmployeeDto>>> Get()
         {
             try
@@ -41,7 +41,7 @@ namespace API.Resources.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "read_access")]
+        //[Authorize(Policy = "read_access")]
         public async Task<ActionResult<EmployeeDto>> Get(int id)
         {
             try

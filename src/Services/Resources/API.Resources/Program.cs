@@ -78,30 +78,30 @@ builder.Services.AddAutoMapper(options =>
     options.AddProfile(new ResourceProfile());
 });
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer(options =>
-    {
-        options.Authority = config["IdentityServer:Authority"];
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateAudience = false
-        };
-    });
+//builder.Services.AddAuthentication("Bearer")
+//    .AddJwtBearer(options =>
+//    {
+//        options.Authority = config["IdentityServer:Authority"];
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateAudience = false
+//        };
+//    });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy(name: "read_access", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "resources.read");
-    });
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy(name: "read_access", policy =>
+//    {
+//        policy.RequireAuthenticatedUser();
+//        policy.RequireClaim("scope", "resources.read");
+//    });
 
-    options.AddPolicy(name: "write_access", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "resources.write");
-    });
-});
+//    options.AddPolicy(name: "write_access", policy =>
+//    {
+//        policy.RequireAuthenticatedUser();
+//        policy.RequireClaim("scope", "resources.write");
+//    });
+//});
 
 var app = builder.Build();
 
@@ -134,7 +134,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
+//app.UseAuthentication();
 
 app.UseAuthorization();
 

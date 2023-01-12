@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Common.Core.Requests
@@ -14,5 +15,41 @@ namespace Common.Core.Requests
 
         [JsonIgnore(Condition = JsonIgnoreCondition.Always)] 
         public string PictureUrl { get; set; }
+    }
+
+
+    public class ProductRequest
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public decimal Price { get; set; }
+    }
+
+    public class ProductSearchRequestFromTo
+    {
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public DateTime From { get; set; }
+
+        [Required]
+        public DateTime To { get; set; }
+    }
+
+    public class ProductSearchRequestAll
+    {
+        [Required]
+        public string Name { get; set; }
+    }
+
+    public class OrderSearchRequestAsOf
+    {
+        [Required]
+        public string Customer { get; set; }
+
+        [Required]
+        public DateTime On { get; set; }
     }
 }

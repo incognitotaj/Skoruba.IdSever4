@@ -12,4 +12,6 @@
         public int ProductTypeId { get; set; }
         public string ProductType { get; set; }
     }
+
+    
 }
