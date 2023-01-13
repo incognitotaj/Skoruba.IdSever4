@@ -21,14 +21,14 @@ namespace Client.Web.MVC
                 .GetSection(nameof(ClientConfiguration))
                 .Get<ClientConfiguration>();
 
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy(name: "user_read_policy",
-                    policy =>
-                    {
-                        policy.RequireAuthenticatedUser();
-                        //policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin", "manager" });
-                    });
+            //builder.Services.AddAuthorization(options =>
+            //{
+                //options.AddPolicy(name: "user_read_policy",
+                //    policy =>
+                //    {
+                //        policy.RequireAuthenticatedUser();
+                //        //policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin", "manager" });
+                //    });
 
 
                 //options.AddPolicy(name: "admin_policy",
@@ -47,14 +47,14 @@ namespace Client.Web.MVC
                 //    });
 
 
-                options.AddPolicy(name: "admin_policy",
-                    policy =>
-                        policy.RequireAssertion(context => context.User.HasClaim(
-                            c =>
-                            {
-                                return c.Type == JwtClaimTypes.Role && c.Value.Contains("admin");
-                            })
-                        ));
+                //options.AddPolicy(name: "admin_policy",
+                //    policy =>
+                //        policy.RequireAssertion(context => context.User.HasClaim(
+                //            c =>
+                //            {
+                //                return c.Type == JwtClaimTypes.Role && c.Value.Contains("admin");
+                //            })
+                //        ));
 
                 //options.AddPolicy(name: "write_policy",
                 //    policy =>
@@ -64,7 +64,7 @@ namespace Client.Web.MVC
                 //                return c.Type == JwtClaimTypes.Role && c.Value.Contains("admin");
                 //            })
                 //        ));
-            });
+            //});
 
             builder.Services.AddAuthentication(options =>
             {

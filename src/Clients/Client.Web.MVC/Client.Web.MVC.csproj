@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Helpers\Helpers.TagHelpers\Helpers.TagHelpers.csproj" />
     <ProjectReference Include="..\..\Services\Common\Common.Core\Common.Core.csproj" />
     <ProjectReference Include="..\..\Services\Common\Common.Infrastructure\Common.Infrastructure.csproj" />
   </ItemGroup>

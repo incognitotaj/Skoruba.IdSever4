@@ -107,13 +107,13 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(name: "read_access", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "catalog.read");
+        policy.RequireClaim("catalog.read", "catalog.read");
     });
 
     options.AddPolicy(name: "write_access", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "catalog.write");
+        policy.RequireClaim("catalog.write", "catalog.write");
     });
 });
 

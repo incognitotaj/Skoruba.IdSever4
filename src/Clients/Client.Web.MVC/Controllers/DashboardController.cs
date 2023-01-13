@@ -21,10 +21,11 @@ namespace Client.Web.MVC.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "user_read_policy")]
-        public IActionResult Index()
+        //[Authorize(Policy = "user_read_policy")]
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            //await LogTokenAndClaims();
+            await LogTokenAndClaims();
             return View();
         }
 
