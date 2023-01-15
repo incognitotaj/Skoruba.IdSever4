@@ -21,8 +21,8 @@ namespace Client.Web.MVC
                 .GetSection(nameof(ClientConfiguration))
                 .Get<ClientConfiguration>();
 
-            //builder.Services.AddAuthorization(options =>
-            //{
+            builder.Services.AddAuthorization(options =>
+            {
                 //options.AddPolicy(name: "user_read_policy",
                 //    policy =>
                 //    {
@@ -31,12 +31,12 @@ namespace Client.Web.MVC
                 //    });
 
 
-                //options.AddPolicy(name: "admin_policy",
-                //    policy =>
-                //    {
-                //        policy.RequireAuthenticatedUser();
-                //        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
-                //    });
+                options.AddPolicy(name: "admin_policy",
+                    policy =>
+                    {
+                        policy.RequireAuthenticatedUser();
+                        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
+                    });
 
 
                 //options.AddPolicy(name: "manager_policy",
@@ -64,7 +64,7 @@ namespace Client.Web.MVC
                 //                return c.Type == JwtClaimTypes.Role && c.Value.Contains("admin");
                 //            })
                 //        ));
-            //});
+            });
 
             builder.Services.AddAuthentication(options =>
             {

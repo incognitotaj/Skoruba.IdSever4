@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Helpers.TagHelpers
 {
-    [HtmlTargetElement("*", Attributes = "policy-name")]
+    [HtmlTargetElement("*", Attributes = "policy-name,policy-value")]
     public class PolicyTagHelper : TagHelper
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -18,16 +18,17 @@ namespace Helpers.TagHelpers
             _httpContextAccessor = httpContextAccessor;
         }
         public string PolicyName { get; set; }
+        public string PolicyValue { get; set; }
 
         public override Task ProcessAsync(
             TagHelperContext context, TagHelperOutput output)
         {
             if (_httpContextAccessor.HttpContext != null)
             {
-                //if (!ClaimcHelper.IsValid(_httpContextAccessor.HttpContext, "client_role", PolicyName))
-                //{
-                //    output.Content.Clear();
-                //}
+                if (!ClaimcHelper.IsValid(_httpContextAccessor.HttpContext, PolicyValue, PolicyName))
+                {
+                    output.Content.Clear();
+                }
             }
 
             return base.ProcessAsync(context, output);
