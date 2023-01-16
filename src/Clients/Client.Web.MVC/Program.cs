@@ -31,12 +31,12 @@ namespace Client.Web.MVC
                 //    });
 
 
-                options.AddPolicy(name: "admin_policy",
-                    policy =>
-                    {
-                        policy.RequireAuthenticatedUser();
-                        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
-                    });
+                //options.AddPolicy(name: "admin_policy",
+                //    policy =>
+                //    {
+                //        policy.RequireAuthenticatedUser();
+                //        policy.RequireClaim(claimType: "role", allowedValues: new[] { "admin" });
+                //    });
 
 
                 //options.AddPolicy(name: "manager_policy",
