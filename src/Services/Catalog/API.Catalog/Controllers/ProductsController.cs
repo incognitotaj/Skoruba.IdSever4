@@ -26,6 +26,23 @@ namespace API.Catalog.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("list")]
+        [Authorize(Policy = "read_access")]
+        public ActionResult Get()
+        {
+            try
+            {
+                var result = _productRepository.GetList(true);
+                var products = _mapper.Map<IEnumerable<ProductDto>>(result);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error: {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet()]
         [Authorize(Policy = "read_access")]
         public ActionResult Get([FromQuery]ProductParameters pageParameters)

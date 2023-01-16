@@ -34,6 +34,21 @@ namespace API.Catalog.Infrastructure.Repositories
                     .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public IEnumerable<Product> GetList(bool includeDetails = false)
+        {
+            var result = Get();
+
+            if (includeDetails)
+            {
+                result = result
+                .Include(p => p.ProductType)
+                .Include(p => p.ProductBrand);
+
+            }
+
+            return result;
+        }
+
         public PagedList<Product> Get(ProductParameters pageParameters, bool includeDetails = false)
         {
             var result = Get();

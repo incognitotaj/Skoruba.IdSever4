@@ -67,11 +67,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Orders.Core", "src\Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Orders.Infrastructure", "src\Services\Orders\API.Orders.Infrastructure\API.Orders.Infrastructure.csproj", "{0AFBB2DD-5EBB-4EE9-BC92-227EB8C82756}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Wpf.App", "src\Clients\Client.Wpf.App\Client.Wpf.App.csproj", "{777E20DE-A1F2-4CC1-AF56-EA324F20C7C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Wpf.App", "src\Clients\Client.Wpf.App\Client.Wpf.App.csproj", "{777E20DE-A1F2-4CC1-AF56-EA324F20C7C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helpers", "helpers", "{14307517-E935-4B2B-AE63-5B68661F1FF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers.TagHelpers", "src\Helpers\Helpers.TagHelpers\Helpers.TagHelpers.csproj", "{50311DB0-FB34-4DC9-A890-6F5137C4DB26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers.Extensions", "src\Helpers\Helpers.TagHelpers\Helpers.Extensions.csproj", "{50311DB0-FB34-4DC9-A890-6F5137C4DB26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

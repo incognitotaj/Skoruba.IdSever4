@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helpers.TagHelpers
+namespace Helpers.Extensions
 {
     [HtmlTargetElement("*", Attributes = "policy-name,policy-value")]
     public class PolicyTagHelper : TagHelper

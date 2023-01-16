@@ -2,6 +2,9 @@
     ViewData["Title"] = "Products";
 }
 
+@section Styles {
+    <link href="~/lib/datatables.net/css/datatables.bootstrap5.css" rel="stylesheet" />
+}
 
 <div class="d-flex justify-content-between my-3">
     <h2 class="" style="line-height:1;">Products</h2>
@@ -12,6 +15,79 @@
 
 <div class="row">
     <div class="col-xl-12">
-        @await Component.InvokeAsync("Client.Web.MVC.Areas.Admin.ViewComponents.Products")
+        @*@await Component.InvokeAsync("Client.Web.MVC.Areas.Admin.ViewComponents.Products")*@
+
+        <table class="table py-2" id="products-data">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+
+        </table>
+
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/lib/datatables.net/js/jquery.datatables.js"></script>
+    <script src="~/lib/datatables.net/js/datatables.bootstrap5.js"></script>
+    <script>
+        $(function () {
+            Get();
+        });
+
+        function Get() {
+            $.ajax({
+                url: '/Admin/Products/GetData',
+                type: 'GET',
+                dataType: 'json',
+                success: onSuccess
+            });
+        }
+
+        function onSuccess(response) {
+            $("#products-data").DataTable({
+                bProcessing: true,
+                bLengthChange: true,
+                lengthMenu: [[5, 10, 15, 20, 25, 50, 100, -1], [5, 10, 15, 20, 25, 50, 100, "All"]],
+                bFilter: true,
+                bSort: true,
+                bPaginate: true,
+                data: response,
+                columns: [
+                    {
+                        data: 'Name',
+                        render: function(data, type, row, meta){
+                            return row.name
+                        }
+                    },
+                    {
+                        data: 'ProductBrand',
+                        render: function (data, type, row, meta) {
+                            return row.productBrand
+                        }
+                    },
+                    {
+                        data: 'ProductType',
+                        render: function (data, type, row, meta) {
+                            return row.productType
+                        }
+                    },
+                    {
+                        data: 'Price',
+                        render: function (data, type, row, meta) {
+                            return row.price
+                        }
+                    }
+                ]
+            });
+
+        }
+
+
+    </script>
+}

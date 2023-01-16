@@ -37,6 +37,13 @@ namespace Client.Web.MVC.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetData()
+        {
+            var data = await _productsService.GetListAsync();
+            return new JsonResult(data);
+        }
+
+        [HttpGet]
         public IActionResult Get()
         {
             return ViewComponent("Client.Web.MVC.Areas.Admin.ViewComponents.Products");

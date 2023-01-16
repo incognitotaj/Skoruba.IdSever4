@@ -14,13 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Helpers\Helpers.TagHelpers\Helpers.TagHelpers.csproj" />
+    <ProjectReference Include="..\..\Helpers\Helpers.TagHelpers\Helpers.Extensions.csproj" />
     <ProjectReference Include="..\..\Services\Common\Common.Core\Common.Core.csproj" />
     <ProjectReference Include="..\..\Services\Common\Common.Infrastructure\Common.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="wwwroot\lib\datatables.net\" />
   </ItemGroup>
 
 </Project>

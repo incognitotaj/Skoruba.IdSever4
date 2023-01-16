@@ -10,6 +10,7 @@ namespace API.Catalog.Core.Repositories
     {
         Task<Product> Get(int id, bool includeDetails = false);
 
+        IEnumerable<Product> GetList(bool includeDetails = false);
         PagedList<Product> Get(ProductParameters pageParameters, bool includeDetails = false);
 
         Task<Product> CreateAsync(Product postRequest);

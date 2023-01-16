@@ -38,6 +38,32 @@ namespace Common.Infrastructure.Servces
             return product;
         }
 
+        public async Task<IEnumerable<ProductResponse>> GetListAsync()
+        {
+            IEnumerable<ProductResponse> products = new List<ProductResponse>();
+
+            var client = _httpClientFactory.CreateClient("CatalogApiClient");
+
+            var request = new HttpRequestMessage(
+                method: HttpMethod.Get,
+                requestUri: "/products/list");
+
+
+            var result = await client
+                .SendAsync(request: request, completionOption: HttpCompletionOption.ResponseHeadersRead)
+                .ConfigureAwait(false);
+
+            result.EnsureSuccessStatusCode();
+            if (result.IsSuccessStatusCode)
+            {
+                var model = await result.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductResponse>>>(model);
+
+                products = data.Data;
+            }
+            return products;
+        }
+
         public async Task<IEnumerable<ProductResponse>> GetAsync()
         {
             IEnumerable<ProductResponse> products = new List<ProductResponse>();

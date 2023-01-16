@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helpers.TagHelpers
+namespace Helpers.Extensions
 {
     public class ClaimcHelper
     {
