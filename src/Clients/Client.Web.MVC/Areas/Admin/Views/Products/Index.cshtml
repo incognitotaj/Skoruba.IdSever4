@@ -51,12 +51,14 @@
 
         function onSuccess(response) {
             $("#products-data").DataTable({
-                bProcessing: true,
-                bLengthChange: true,
+                processing: true,
+                lengthChange: true,
                 lengthMenu: [[5, 10, 15, 20, 25, 50, 100, -1], [5, 10, 15, 20, 25, 50, 100, "All"]],
-                bFilter: true,
-                bSort: true,
-                bPaginate: true,
+                filter: true,
+                ordering: true,
+                paging: true,
+                select: true,
+                serverSide: false,
                 data: response,
                 columns: [
                     {
